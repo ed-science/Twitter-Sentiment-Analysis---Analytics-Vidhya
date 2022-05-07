@@ -64,7 +64,7 @@ combi['tweet'] = np.vectorize(remove_pattern)(combi['tweet'], "@[\w]*")
 # remove special characters, numbers, punctuations
 combi['tweet'] = combi['tweet'].str.replace("[^a-zA-Z#]", " ")
 
-       
+
 #Removing Short Words       
 combi['tweet'] = combi['tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w)>3]))       
 
@@ -93,7 +93,7 @@ combi['tweet'] = tokenized_tweet
 #A wordcloud is a visualization wherein the most frequent words appear in 
 #large size and the less frequent words appear in smaller sizes.
 
-all_words = ' '.join([text for text in combi['tweet']])
+all_words = ' '.join(list(combi['tweet']))
 from wordcloud import WordCloud
 wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(all_words)
 
@@ -101,14 +101,14 @@ plt.figure(figsize=(10, 7))
 plt.imshow(wordcloud, interpolation="bilinear")
 
 #Words in non racist/sexist tweets
-normal_words =' '.join([text for text in combi['tweet'][combi['label'] == 0]])
+normal_words = ' '.join(list(combi['tweet'][combi['label'] == 0]))
 
 wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(normal_words)
 plt.figure(figsize=(10, 7))
 plt.imshow(wordcloud, interpolation="bilinear")
 
 #Racist/Sexist Tweets
-negative_words = ' '.join([text for text in combi['tweet'][combi['label'] == 1]])
+negative_words = ' '.join(list(combi['tweet'][combi['label'] == 1]))
 wordcloud = WordCloud(width=800, height=500,random_state=21, max_font_size=110).generate(negative_words)
 plt.figure(figsize=(10, 7))
 plt.imshow(wordcloud, interpolation="bilinear")
